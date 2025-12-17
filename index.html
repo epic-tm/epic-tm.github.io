@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>epic | monochrome panorama</title>
+    <title>epic | futuristic console</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
@@ -10,15 +10,15 @@
         :root {
             --glass: rgba(255, 255, 255, 0.05);
             --glass-strong: rgba(255, 255, 255, 0.1);
-            --border: rgba(255, 255, 255, 0.15);
-            --text: #ffffff;
+            --border: rgba(255, 255, 255, 0.2);
+            --accent: #ffffff;
         }
 
         body {
             margin: 0;
             background-color: #000;
             font-family: 'Poppins', sans-serif;
-            color: var(--text);
+            color: #fff;
             height: 100vh;
             overflow: hidden;
             display: flex;
@@ -27,19 +27,17 @@
             perspective: 1500px;
         }
 
-        /* 1. PANORAMA BACKGROUND EFFECT (10% Opacity) */
+        /* 1. INCREASED PANORAMA OPACITY (30%) */
         .panorama-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%; /* Wider for scrolling */
-            height: 100%;
+            top: 0; left: 0;
+            width: 200%; height: 100%;
             background: url('https://i.pinimg.com/1200x/e8/ef/25/e8ef25f2941407367f048fdbf1fa7354.jpg') repeat-x;
             background-size: contain;
-            filter: grayscale(1) brightness(0.3);
-            opacity: 0.10; /* Exactly 10% */
+            filter: grayscale(1) brightness(0.4);
+            opacity: 0.30; /* Raised from 10% to 30% for visibility */
             z-index: -2;
-            animation: panoramaScroll 60s linear infinite;
+            animation: panoramaScroll 45s linear infinite;
         }
 
         @keyframes panoramaScroll {
@@ -47,114 +45,113 @@
             to { transform: translateX(-50%); }
         }
 
-        /* 2. SUBTLE GIF OVERLAY (5%) */
-        body::before {
+        /* 2. FUTURISTIC OVERLAYS (Scanlines) */
+        body::after {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9e187723df1.gif') center/cover;
-            opacity: 0.05;
-            z-index: -1;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
+            background-size: 100% 2px, 3px 100%;
+            z-index: 5;
             pointer-events: none;
         }
 
         .scene {
             position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
             transform-style: preserve-3d;
             z-index: 2;
         }
 
-        /* Sidebar */
-        .sidebar-left {
+        /* 3. VECTOR HUD ELEMENTS */
+        .hud-corner {
             position: absolute;
-            left: 5%;
-            transform: rotateY(40deg);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            width: 100px; height: 100px;
+            border: 1px solid var(--border);
+            opacity: 0.4;
+            pointer-events: none;
         }
-        .tool-box { width: 40px; height: 40px; background: var(--glass); border: 1px solid var(--border); backdrop-filter: blur(5px); }
+        .top-left { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+        .bottom-right { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+
+        /* 4. ROTATING VECTOR RING (Behind Card) */
+        .vector-ring {
+            position: absolute;
+            width: 600px; height: 600px;
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: spin 20s linear infinite;
+            pointer-events: none;
+        }
 
         /* Main Bio Window */
         .notepad-perspective {
             width: 480px;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(30px);
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(40px);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 4px; /* More industrial look */
             transform: translateZ(100px);
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            box-shadow: 0 0 40px rgba(255,255,255,0.05);
         }
 
         .notepad-header {
-            padding: 12px 18px;
-            background: rgba(255,255,255,0.05);
+            padding: 10px 18px;
+            background: rgba(255,255,255,0.08);
             border-bottom: 1px solid var(--border);
-            font-size: 11px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #888;
+            font-size: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             font-family: 'Space Mono', monospace;
         }
 
-        .header-viz { height: 20px; filter: grayscale(1) invert(1); opacity: 0.6; }
+        .header-viz { height: 18px; filter: grayscale(1) invert(1); opacity: 0.8; }
 
         .notepad-body { padding: 40px; }
         h1 { margin: 0; font-size: 3.5rem; font-weight: 900; letter-spacing: -4px; line-height: 1; }
-        .handle { font-family: 'Space Mono', monospace; font-size: 13px; opacity: 0.4; display: block; margin: 10px 0 25px 0;}
-        .bio-text { font-size: 15px; line-height: 1.8; color: #bbb; }
+        .handle { font-family: 'Space Mono', monospace; font-size: 11px; color: #888; display: block; margin: 10px 0 25px 0;}
 
-        /* Floor Perspective Section */
+        /* Floor Section (Spotify & Disc) */
         .floor-container {
             position: absolute;
-            bottom: 2%;
-            width: 700px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: rotateX(55deg) translateZ(-50px);
+            bottom: 5%;
+            width: 650px;
+            transform: rotateX(60deg) translateZ(-50px);
             transform-style: preserve-3d;
         }
 
-        /* Glass Spotify Frame */
         .glass-frame {
-            position: relative;
             padding: 20px;
-            background: var(--glass-strong);
-            backdrop-filter: blur(15px);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            width: 100%;
-            z-index: 2;
+            border-radius: 10px;
             filter: grayscale(1);
         }
 
-        /* Spinning Disc (More Visible & Monochrome) */
         .disc-underlay {
             position: absolute;
-            width: 450px;
-            height: 450px;
+            width: 480px; height: 480px;
+            top: 50%; left: 50%;
+            margin-top: -240px; margin-left: -240px;
             background: url('https://pbs.twimg.com/profile_images/1728983022819553280/18VppoMQ_400x400.png') center/cover;
             border-radius: 50%;
             z-index: -1;
-            filter: grayscale(1) brightness(0.6);
-            opacity: 0.7;
-            animation: spin 12s linear infinite;
-            transform: translateZ(-40px);
+            filter: grayscale(0.2) contrast(1.2); /* Very visible now */
+            opacity: 0.8;
+            animation: spin 10s linear infinite;
+            transform: translateZ(-30px);
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg) translateZ(-40px); }
-            to { transform: rotate(360deg) translateZ(-40px); }
+            from { transform: rotate(0deg) translateZ(-30px); }
+            to { transform: rotate(360deg) translateZ(-30px); }
         }
 
-        .spotify-bottom img { width: 100%; border-radius: 10px; }
+        .spotify-bottom img { width: 100%; }
 
     </style>
 </head>
@@ -164,22 +161,20 @@
 
     <div class="scene">
         
-        <div class="sidebar-left">
-            <div class="tool-box"></div>
-            <div class="tool-box" style="background: rgba(255,255,255,0.1);"></div>
-            <div class="tool-box"></div>
-        </div>
+        <div class="hud-corner top-left"></div>
+        <div class="hud-corner bottom-right"></div>
+        <div class="vector-ring"></div>
 
         <div class="notepad-perspective">
             <div class="notepad-header">
-                <span>Epic.sys</span>
+                <span>[ CORE_ACCESS_GRANTED ]</span>
                 <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2J5azQyamloZ3U2NXYybnNyOW5qZDN5Ymp3ZjVoZGFzbG45NGdtdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/9NBc7mNyUgaQl0EC11/giphy.gif" class="header-viz">
-                <span>_ □ ✖</span>
+                <span>V.2025</span>
             </div>
             <div class="notepad-body">
                 <h1>Epic.</h1>
-                <span class="handle">discord: epicversal</span>
-                <div class="bio-text">
+                <span class="handle">ID: epicversal // DISCORD</span>
+                <div style="font-size: 14px; line-height: 1.8; color: #aaa;">
                     <strong>adjective</strong> - /ˈɛpɪk/ (EP-ik)<br><br>
                     Just when they see something epic, its absolutely jawdropping, shocking, etc.
                 </div>
@@ -188,13 +183,10 @@
 
         <div class="floor-container">
             <div class="disc-underlay"></div>
-            
             <div class="glass-frame">
-                <div class="spotify-bottom">
-                    <a href="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&redirect=true">
-                        <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0&mode=dark">
-                    </a>
-                </div>
+                <a href="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&redirect=true">
+                    <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0&mode=dark" style="width:100%; border-radius: 5px;">
+                </a>
             </div>
         </div>
 

@@ -15,10 +15,7 @@
 
         body {
             margin: 0;
-            background-color: #000;
-            background-image: url('https://i.pinimg.com/1200x/d1/cc/23/d1cc239d3d76789fab3ea4dc2280b148.jpg');
-            background-size: cover;
-            background-position: center;
+            background-color: #000; /* Pure Black Background */
             font-family: 'Poppins', sans-serif;
             color: var(--text);
             height: 100vh;
@@ -71,7 +68,7 @@
         /* Main Note Pad */
         .notepad-perspective {
             width: 460px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border);
@@ -97,26 +94,20 @@
         .handle { font-family: 'Space Mono', monospace; font-size: 12px; opacity: 0.4; display: block; margin: 10px 0 25px 0;}
         .bio-text { font-size: 14px; line-height: 1.7; color: #ccc; }
 
-        /* Smaller Spotify Profile Card */
+        /* Smaller Spotify Profile Card - Static State */
         .spotify-perspective {
             position: absolute;
             right: 8%;
             transform: rotateY(-30deg) translateZ(50px);
-            /* Scaling it smaller as requested */
-            width: 350px; 
-            filter: grayscale(1) contrast(1.1) brightness(0.9);
-            transition: 0.4s ease;
+            width: 320px; 
+            filter: grayscale(1) contrast(1.1) brightness(0.8);
+            /* Removed hover transition properties */
         }
         
         .spotify-perspective img {
-            width: 100%; /* Makes the image fit the width of the container */
+            width: 100%;
             border-radius: 10px;
             border: 1px solid var(--border);
-        }
-        
-        .spotify-perspective:hover {
-            filter: grayscale(0);
-            transform: rotateY(-10deg) translateZ(100px);
         }
 
     </style>
@@ -147,7 +138,7 @@
                     Just when they see something epic, its absolutely jawdropping, shocking, etc.
                 </div>
                 <div style="margin-top: 40px; font-size: 10px; opacity: 0.2; letter-spacing: 5px; text-transform: uppercase;">
-                    Static Perspective // v2.1
+                    Static Perspective // v2.2
                 </div>
             </div>
         </div>

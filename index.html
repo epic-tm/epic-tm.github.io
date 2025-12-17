@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>epic | monochrome console</title>
+    <title>epic | monochrome panorama</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
@@ -27,14 +27,34 @@
             perspective: 1500px;
         }
 
-        /* 5% Opacity Background GIF */
+        /* 1. PANORAMA BACKGROUND EFFECT (10% Opacity) */
+        .panorama-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%; /* Wider for scrolling */
+            height: 100%;
+            background: url('https://i.pinimg.com/1200x/e8/ef/25/e8ef25f2941407367f048fdbf1fa7354.jpg') repeat-x;
+            background-size: contain;
+            filter: grayscale(1) brightness(0.3);
+            opacity: 0.10; /* Exactly 10% */
+            z-index: -2;
+            animation: panoramaScroll 60s linear infinite;
+        }
+
+        @keyframes panoramaScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* 2. SUBTLE GIF OVERLAY (5%) */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9e187723df1.gif') center/cover;
             opacity: 0.05;
-            z-index: 1;
+            z-index: -1;
             pointer-events: none;
         }
 
@@ -49,7 +69,7 @@
             z-index: 2;
         }
 
-        /* Sidebar Tools (Angled) */
+        /* Sidebar */
         .sidebar-left {
             position: absolute;
             left: 5%;
@@ -58,25 +78,17 @@
             flex-direction: column;
             gap: 15px;
         }
+        .tool-box { width: 40px; height: 40px; background: var(--glass); border: 1px solid var(--border); backdrop-filter: blur(5px); }
 
-        .tool-box {
-            width: 40px; height: 40px;
-            background: var(--glass);
-            border: 1px solid var(--border);
-            backdrop-filter: blur(5px);
-        }
-
-        /* Main Bio Card */
+        /* Main Bio Window */
         .notepad-perspective {
             width: 480px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border);
             border-radius: 12px;
             transform: translateZ(100px);
             box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            z-index: 10;
         }
 
         .notepad-header {
@@ -91,19 +103,14 @@
             font-family: 'Space Mono', monospace;
         }
 
-        /* Audio Visualizer GIF in Header */
-        .header-viz {
-            height: 20px;
-            filter: invert(1) brightness(2);
-            opacity: 0.6;
-        }
+        .header-viz { height: 20px; filter: grayscale(1) invert(1); opacity: 0.6; }
 
         .notepad-body { padding: 40px; }
         h1 { margin: 0; font-size: 3.5rem; font-weight: 900; letter-spacing: -4px; line-height: 1; }
         .handle { font-family: 'Space Mono', monospace; font-size: 13px; opacity: 0.4; display: block; margin: 10px 0 25px 0;}
         .bio-text { font-size: 15px; line-height: 1.8; color: #bbb; }
 
-        /* Floor Section (Spotify & Disc) */
+        /* Floor Perspective Section */
         .floor-container {
             position: absolute;
             bottom: 2%;
@@ -115,7 +122,7 @@
             transform-style: preserve-3d;
         }
 
-        /* Glassmorphism Frame around Embed */
+        /* Glass Spotify Frame */
         .glass-frame {
             position: relative;
             padding: 20px;
@@ -125,9 +132,10 @@
             border-radius: 20px;
             width: 100%;
             z-index: 2;
+            filter: grayscale(1);
         }
 
-        /* Visible Spinning Disc */
+        /* Spinning Disc (More Visible & Monochrome) */
         .disc-underlay {
             position: absolute;
             width: 450px;
@@ -135,11 +143,10 @@
             background: url('https://pbs.twimg.com/profile_images/1728983022819553280/18VppoMQ_400x400.png') center/cover;
             border-radius: 50%;
             z-index: -1;
-            filter: grayscale(0.5) contrast(1.2) brightness(0.8); /* More visible */
-            opacity: 0.6;
+            filter: grayscale(1) brightness(0.6);
+            opacity: 0.7;
             animation: spin 12s linear infinite;
             transform: translateZ(-40px);
-            box-shadow: 0 0 50px rgba(255,255,255,0.1);
         }
 
         @keyframes spin {
@@ -153,6 +160,8 @@
 </head>
 <body>
 
+    <div class="panorama-bg"></div>
+
     <div class="scene">
         
         <div class="sidebar-left">
@@ -164,7 +173,7 @@
         <div class="notepad-perspective">
             <div class="notepad-header">
                 <span>Epic.sys</span>
-                <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2J5azQyamloZ3U2NXYybnNyOW5qZDN5Ymp3ZjVoZGFzbG45NGdtdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/9NBc7mNyUgaQl0EC11/giphy.gif" class="header-viz" alt="viz">
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2J5azQyamloZ3U2NXYybnNyOW5qZDN5Ymp3ZjVoZGFzbG45NGdtdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/9NBc7mNyUgaQl0EC11/giphy.gif" class="header-viz">
                 <span>_ □ ✖</span>
             </div>
             <div class="notepad-body">
@@ -183,7 +192,7 @@
             <div class="glass-frame">
                 <div class="spotify-bottom">
                     <a href="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&redirect=true">
-                        <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0&mode=dark" alt="Spotify">
+                        <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0&mode=dark">
                     </a>
                 </div>
             </div>

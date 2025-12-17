@@ -1,95 +1,191 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>kwangya - Edited</title>
+    <title>kwangya | elroseria</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="color-scheme" content="light only" />
-    
-    <link href="https://fonts.googleapis.com/css2?display=swap&family=Poppins:ital,wght@0,300;0,400;0,500;0,700;0,800;0,900;1,300;1,400;1,500;1,700;1,800;1,900&family=League+Spartan:ital,wght@0,300;0,400;1,300;1,400" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=League+Spartan:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* Base Reset & Styles */
-        html,body,div,span,h1,h2,h3,h4,h5,h6,p,a,img,ul,li,article,aside,footer,header,nav,section {margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
-        body { line-height: 1.0; min-height: 100vh; background-color: #F7F7F7; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
-        
-        /* Carrd Layout Emulation */
-        .site-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; position: relative; }
-        
-        /* Fixed Background Image Replacement */
+        :root {
+            --pink-main: #CB9EAB;
+            --pink-light: #fceef2;
+            --accent-pink: #f4a7bb;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* The Grid Background from your image */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background-image: 
+                linear-gradient(var(--pink-light) 1px, transparent 1px),
+                linear-gradient(90deg, var(--pink-light) 1px, transparent 1px);
+            background-size: 40px 40px; /* Adjust grid size here */
+        }
+
+        /* Large Background Text */
+        .bg-text {
+            position: fixed;
+            top: 50px;
+            left: 50px;
             z-index: -1;
-            background-image: url('https://e84125a7e461a76f.demo.carrd.co/assets/images/bg.jpg'); /* Background Link */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+            font-size: 120px;
+            line-height: 0.8;
+            color: var(--accent-pink);
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: -5px;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* The Main Profile Window */
+        .main-card {
+            width: 380px;
+            background: white;
+            border: 1px solid var(--pink-main);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px var(--pink-light);
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-header {
+            height: 150px;
+            background-image: url('https://e84125a7e461a76f.demo.carrd.co/assets/images/container02.jpg'); 
             background-size: cover;
-            background-position: center;
+            position: relative;
         }
 
-        .container {
-            width: 25rem;
-            max-width: 90%;
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid #CB9EAB;
-            border-radius: 1rem;
-            padding: 2rem;
-            margin: 1rem;
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            position: absolute;
+            bottom: -40px;
+            left: 20px;
+            background: #eee;
+        }
+
+        .card-body {
+            padding: 50px 20px 20px 20px;
+            text-align: left;
+        }
+
+        .card-body h2 { margin: 0; font-size: 1.2rem; color: #333; }
+        .card-body .handle { color: var(--pink-main); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .card-body p { font-size: 0.85rem; color: #666; line-height: 1.4; }
+
+        /* Small Popup Window (The one on the right) */
+        .side-popup {
+            position: absolute;
+            width: 200px;
+            background: white;
+            border: 1px solid var(--pink-main);
+            border-radius: 10px;
+            padding: 15px;
+            top: -20px;
+            right: -100px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            animation: floating 4s ease-in-out infinite;
         }
 
-        h1 { font-family: 'League Spartan', sans-serif; font-weight: 700; font-size: 2.5rem; color: #CB9EAB; margin-bottom: 0.5rem; }
-        p { color: #555; line-height: 1.5; font-size: 0.9rem; }
-
-        /* Floating Animation from the Template */
         @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .floating-box {
-            animation: floating 3s ease-in-out infinite;
-            border-radius: 3rem;
-            background: rgba(255,255,255,0.6);
-            border: 1px solid #CB9EAB;
-            padding: 1rem 2rem;
-            margin-top: 1rem;
-        }
-
-        .links a {
-            display: inline-block;
-            margin: 5px;
-            padding: 10px 20px;
-            background: #CB9EAB;
+        .btn-pink {
+            background: var(--accent-pink);
             color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
             text-decoration: none;
-            border-radius: 5px;
             font-size: 0.8rem;
-            transition: 0.3s;
+            display: inline-block;
+            margin-top: 10px;
         }
-        .links a:hover { opacity: 0.8; transform: scale(1.05); }
+
+        /* Links Bar at bottom */
+        .links-bar {
+            margin-top: 20px;
+            background: white;
+            border: 1px solid var(--pink-main);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        .links-label {
+            background: var(--accent-pink);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="site-wrapper">
-        <div class="container">
-            <h1>KWANGYA</h1>
-            <p>Welcome to your new GitHub hosted page. This design was inspired by the elroseria template.</p>
-            
-            <div class="links">
-                <a href="#">Twitter</a>
-                <a href="#">Instagram</a>
-                <a href="#">Spotify</a>
-            </div>
-        </div>
+    <div class="bg-text">I'M<br>ADDICTED</div>
 
-        <div class="floating-box">
-            <p style="color: #CB9EAB; font-weight: bold;">✧ Currently Exploring ✧</p>
+    <div class="wrapper">
+        <div style="position: relative;">
+            
+            <div class="main-card">
+                <div class="card-header">
+                    <img src="https://e84125a7e461a76f.demo.carrd.co/assets/images/image01.jpg" class="avatar">
+                </div>
+                <div class="card-body">
+                    <h2>karina 🌸 rocket puncher</h2>
+                    <span class="handle">@katarinabluu</span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    
+                    <div style="margin-top: 15px; font-size: 0.8rem; color: #999;">
+                        📍 kwangya &nbsp; 🔗 resources &nbsp; 🎂 apr 11
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-popup">
+                <img src="https://e84125a7e461a76f.demo.carrd.co/assets/images/image03.jpg" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 5px;">
+                <div style="font-weight: bold; color: var(--accent-pink);">WINTER 윈터</div>
+                <div style="font-size: 0.7rem; color: #999;">is typing . . .</div>
+                <a href="#" class="btn-pink">open chat</a>
+            </div>
+
+            <div class="links-bar">
+                <span class="links-label">LINKS</span>
+                <span>twitter</span>
+                <span>comms</span>
+                <span>ask me</span>
+            </div>
+
         </div>
     </div>
 

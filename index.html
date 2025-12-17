@@ -16,7 +16,6 @@
         body {
             margin: 0;
             background-color: #000;
-            /* Primary Static Image Background */
             background-image: url('https://i.pinimg.com/1200x/d1/cc/23/d1cc239d3d76789fab3ea4dc2280b148.jpg');
             background-size: cover;
             background-position: center;
@@ -36,7 +35,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9e187723df1.gif') center/cover;
-            opacity: 0.05; /* Set to exactly 5% */
+            opacity: 0.05;
             z-index: 1;
             pointer-events: none;
         }
@@ -52,7 +51,7 @@
             z-index: 2;
         }
 
-        /* Side Tools - Pointing to Center */
+        /* Sidebar Tools */
         .sidebar-left {
             position: absolute;
             left: 8%;
@@ -72,7 +71,7 @@
         /* Main Note Pad */
         .notepad-perspective {
             width: 460px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border);
@@ -96,16 +95,23 @@
 
         h1 { margin: 0; font-size: 3.2rem; font-weight: 900; letter-spacing: -4px; line-height: 1; }
         .handle { font-family: 'Space Mono', monospace; font-size: 12px; opacity: 0.4; display: block; margin: 10px 0 25px 0;}
-
         .bio-text { font-size: 14px; line-height: 1.7; color: #ccc; }
 
-        /* Spotify Card - Angled Left */
+        /* Smaller Spotify Profile Card */
         .spotify-perspective {
             position: absolute;
-            right: 6%;
+            right: 8%;
             transform: rotateY(-30deg) translateZ(50px);
-            filter: grayscale(1) contrast(1.2);
+            /* Scaling it smaller as requested */
+            width: 350px; 
+            filter: grayscale(1) contrast(1.1) brightness(0.9);
             transition: 0.4s ease;
+        }
+        
+        .spotify-perspective img {
+            width: 100%; /* Makes the image fit the width of the container */
+            border-radius: 10px;
+            border: 1px solid var(--border);
         }
         
         .spotify-perspective:hover {
@@ -141,14 +147,14 @@
                     Just when they see something epic, its absolutely jawdropping, shocking, etc.
                 </div>
                 <div style="margin-top: 40px; font-size: 10px; opacity: 0.2; letter-spacing: 5px; text-transform: uppercase;">
-                    Static Perspective // v2.0
+                    Static Perspective // v2.1
                 </div>
             </div>
         </div>
 
         <div class="spotify-perspective">
-            <a href="https://data-card-for-spotify.herokuapp.com/card?user_id=iphcohuk2riswljmiykrzycae">
-                <img src="https://data-card-for-spotify.herokuapp.com/api/card?user_id=iphcohuk2riswljmiykrzycae" alt="Spotify">
+            <a href="https://github.com/kittinan/spotify-github-profile">
+                <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=default&show_offline=false&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0" alt="Spotify Profile">
             </a>
         </div>
 

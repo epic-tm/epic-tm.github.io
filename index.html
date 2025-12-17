@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>epic | monochrome perspective</title>
+    <title>epic | monochrome console</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
@@ -9,7 +9,8 @@
     <style>
         :root {
             --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.12);
+            --glass-strong: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.15);
             --text: #ffffff;
         }
 
@@ -23,10 +24,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1200px;
+            perspective: 1500px;
         }
 
-        /* 5% Opacity GIF Overlay */
+        /* 5% Opacity Background GIF */
         body::before {
             content: '';
             position: fixed;
@@ -48,18 +49,18 @@
             z-index: 2;
         }
 
-        /* Sidebar Tools */
+        /* Sidebar Tools (Angled) */
         .sidebar-left {
             position: absolute;
-            left: 8%;
-            transform: rotateY(35deg) translateZ(0px);
+            left: 5%;
+            transform: rotateY(40deg);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
         }
 
         .tool-box {
-            width: 35px; height: 35px;
+            width: 40px; height: 40px;
             background: var(--glass);
             border: 1px solid var(--border);
             backdrop-filter: blur(5px);
@@ -67,71 +68,86 @@
 
         /* Main Bio Card */
         .notepad-perspective {
-            width: 460px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            width: 480px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             transform: translateZ(100px);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
             z-index: 10;
         }
 
         .notepad-header {
-            padding: 8px 12px;
-            background: rgba(255,255,255,0.03);
+            padding: 12px 18px;
+            background: rgba(255,255,255,0.05);
             border-bottom: 1px solid var(--border);
             font-size: 11px;
             display: flex;
             justify-content: space-between;
-            color: #777;
+            align-items: center;
+            color: #888;
             font-family: 'Space Mono', monospace;
         }
 
-        .notepad-body { padding: 35px; }
-        h1 { margin: 0; font-size: 3.2rem; font-weight: 900; letter-spacing: -4px; line-height: 1; }
-        .handle { font-family: 'Space Mono', monospace; font-size: 12px; opacity: 0.4; display: block; margin: 10px 0 25px 0;}
-        .bio-text { font-size: 14px; line-height: 1.7; color: #ccc; }
+        /* Audio Visualizer GIF in Header */
+        .header-viz {
+            height: 20px;
+            filter: invert(1) brightness(2);
+            opacity: 0.6;
+        }
 
-        /* Perspective Floor Container */
+        .notepad-body { padding: 40px; }
+        h1 { margin: 0; font-size: 3.5rem; font-weight: 900; letter-spacing: -4px; line-height: 1; }
+        .handle { font-family: 'Space Mono', monospace; font-size: 13px; opacity: 0.4; display: block; margin: 10px 0 25px 0;}
+        .bio-text { font-size: 15px; line-height: 1.8; color: #bbb; }
+
+        /* Floor Section (Spotify & Disc) */
         .floor-container {
             position: absolute;
-            bottom: 5%;
-            width: 600px;
+            bottom: 2%;
+            width: 700px;
             display: flex;
             justify-content: center;
             align-items: center;
-            transform: rotateX(55deg);
+            transform: rotateX(55deg) translateZ(-50px);
             transform-style: preserve-3d;
         }
 
-        /* The Spinning Disc Underlay */
+        /* Glassmorphism Frame around Embed */
+        .glass-frame {
+            position: relative;
+            padding: 20px;
+            background: var(--glass-strong);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        /* Visible Spinning Disc */
         .disc-underlay {
             position: absolute;
-            width: 380px;
-            height: 380px;
+            width: 450px;
+            height: 450px;
             background: url('https://pbs.twimg.com/profile_images/1728983022819553280/18VppoMQ_400x400.png') center/cover;
             border-radius: 50%;
             z-index: -1;
-            filter: grayscale(1) brightness(0.4) opacity(0.3);
-            animation: spin 10s linear infinite;
-            transform: translateZ(-30px);
+            filter: grayscale(0.5) contrast(1.2) brightness(0.8); /* More visible */
+            opacity: 0.6;
+            animation: spin 12s linear infinite;
+            transform: translateZ(-40px);
+            box-shadow: 0 0 50px rgba(255,255,255,0.1);
         }
 
         @keyframes spin {
-            from { transform: rotate(0deg) translateZ(-30px); }
-            to { transform: rotate(360deg) translateZ(-30px); }
+            from { transform: rotate(0deg) translateZ(-40px); }
+            to { transform: rotate(360deg) translateZ(-40px); }
         }
 
-        /* Bottom "Floor" Spotify Card */
-        .spotify-bottom {
-            width: 100%;
-            filter: grayscale(1) opacity(0.7);
-            z-index: 1;
-        }
-
-        .spotify-bottom img { width: 100%; }
+        .spotify-bottom img { width: 100%; border-radius: 10px; }
 
     </style>
 </head>
@@ -141,14 +157,14 @@
         
         <div class="sidebar-left">
             <div class="tool-box"></div>
-            <div class="tool-box" style="background: rgba(255,255,255,0.15);"></div>
-            <div class="tool-box"></div>
+            <div class="tool-box" style="background: rgba(255,255,255,0.1);"></div>
             <div class="tool-box"></div>
         </div>
 
         <div class="notepad-perspective">
             <div class="notepad-header">
-                <span>Epic.txt</span>
+                <span>Epic.sys</span>
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2J5azQyamloZ3U2NXYybnNyOW5qZDN5Ymp3ZjVoZGFzbG45NGdtdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/9NBc7mNyUgaQl0EC11/giphy.gif" class="header-viz" alt="viz">
                 <span>_ □ ✖</span>
             </div>
             <div class="notepad-body">
@@ -164,10 +180,12 @@
         <div class="floor-container">
             <div class="disc-underlay"></div>
             
-            <div class="spotify-bottom">
-                <a href="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&redirect=true">
-                    <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=true&bar_color=c0c0c0&mode=light" alt="Spotify Floor">
-                </a>
+            <div class="glass-frame">
+                <div class="spotify-bottom">
+                    <a href="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&redirect=true">
+                        <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0&mode=dark" alt="Spotify">
+                    </a>
+                </div>
             </div>
         </div>
 

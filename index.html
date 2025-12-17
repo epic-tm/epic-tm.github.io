@@ -1,28 +1,30 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>epic | live</title>
+    <title>epic | vanishing point</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
     
     <style>
         :root {
+            --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.1);
-            --glass: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
+            --vanishing-speed: 10s;
         }
 
         body {
             margin: 0;
             background: #000;
+            color: #fff;
             font-family: 'Poppins', sans-serif;
-            color: var(--text);
             height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            /* Create the 3D space */
+            perspective: 1000px;
         }
 
         /* 10% Opacity GIF Background */
@@ -31,116 +33,144 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9e187723df1.gif') center/cover;
-            opacity: 0.10;
+            opacity: 0.1;
             z-index: -1;
         }
 
-        /* Sidebar Tools (Monochrome) */
-        .sidebar-tools {
+        /* THE CORE - The Center Point */
+        .core {
             position: absolute;
-            left: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 10px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #fff 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            opacity: 0.2;
+            animation: pulse 4s infinite ease-in-out;
+            z-index: 1;
         }
 
-        .tool-box { width: 32px; height: 32px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.5); opacity: 0.4; }
+        }
 
-        /* Note Pad Container */
-        .notepad {
-            width: 480px;
-            max-width: 90%;
+        /* 3D Perspective Container */
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        /* Left Side Elements (Angled Right) */
+        .sidebar-left {
+            position: absolute;
+            left: 10%;
+            transform: rotateY(45deg);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Right Side Elements (Angled Left) */
+        .spotify-perspective {
+            position: absolute;
+            right: 5%;
+            transform: rotateY(-35deg) translateZ(50px);
+            filter: grayscale(1) brightness(0.8);
+            transition: 0.5s;
+        }
+        .spotify-perspective:hover { filter: grayscale(0); transform: rotateY(0deg) translateZ(100px); }
+
+        /* The Main Note Pad (Angled towards vanishing point) */
+        .notepad-3d {
+            width: 450px;
             background: var(--glass);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 10px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-            position: relative;
+            transform: rotateX(10deg) rotateY(0deg) translateZ(100px);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            z-index: 10;
         }
 
         .notepad-header {
-            padding: 10px 15px;
+            padding: 10px;
             background: rgba(255,255,255,0.05);
             border-bottom: 1px solid var(--border);
-            font-size: 0.75rem;
+            font-size: 10px;
             display: flex;
             justify-content: space-between;
-            color: #888;
+            color: #666;
         }
 
-        .notepad-body { padding: 40px; }
-        
-        h1 { margin: 0; font-size: 3rem; letter-spacing: -3px; font-weight: 900; }
-        .handle { font-family: 'Space Mono', monospace; font-size: 0.8rem; opacity: 0.4; margin-bottom: 25px; display: block;}
+        .notepad-body { padding: 30px; }
 
-        .bio { font-size: 0.9rem; line-height: 1.7; color: #ddd; }
-        .bio strong { color: #fff; }
+        h1 { margin: 0; font-size: 3rem; font-weight: 900; letter-spacing: -3px; }
+        .handle { font-family: 'Space Mono', monospace; font-size: 12px; opacity: 0.4; display: block; margin-bottom: 20px;}
 
-        /* Spotify Card Integration */
-        .spotify-container {
+        /* Sidebar Tool Boxes */
+        .tool-box {
+            width: 40px; height: 40px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Bottom Text Vanishing toward center */
+        .big-label {
             position: absolute;
-            top: -60px;
-            right: -80px;
-            transform: scale(0.85);
-            animation: float 6s ease-in-out infinite;
-            filter: grayscale(1) contrast(1.1); /* Matches your monochrome theme */
-            transition: 0.3s;
-        }
-        
-        .spotify-container:hover { filter: grayscale(0); transform: scale(0.9); }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) scale(0.85); }
-            50% { transform: translateY(-15px) scale(0.85); }
+            bottom: 5%;
+            font-size: 12vw;
+            font-weight: 900;
+            color: rgba(255,255,255,0.03);
+            text-transform: uppercase;
+            transform: rotateX(60deg);
+            pointer-events: none;
         }
 
     </style>
 </head>
 <body>
 
-    <div style="position:fixed; bottom: 20px; right: 30px; font-size: 8vw; font-weight: 900; opacity: 0.03; pointer-events: none;">EPICVERSAL</div>
+    <div class="core"></div>
 
-    <div class="sidebar-tools">
-        <div class="tool-box"></div>
-        <div class="tool-box" style="background: #fff; opacity: 0.1;"></div>
-        <div class="tool-box"></div>
-        <div class="tool-box"></div>
-        <div style="height: 1px; background: var(--border); margin: 5px 0;"></div>
-        <div class="tool-box"></div>
-    </div>
+    <div class="scene">
+        
+        <div class="sidebar-left">
+            <div class="tool-box"></div>
+            <div class="tool-box" style="background: rgba(255,255,255,0.2);"></div>
+            <div class="tool-box"></div>
+            <div class="tool-box"></div>
+        </div>
 
-    <div class="notepad">
-        <div class="spotify-container">
+        <div class="notepad-3d">
+            <div class="notepad-header">
+                <span>Vanishing_Point_v1.exe</span>
+                <span>_ □ ✖</span>
+            </div>
+            <div class="notepad-body">
+                <h1>Epic.</h1>
+                <span class="handle">discord: epicversal</span>
+                <p style="font-size: 13px; line-height: 1.6; color: #ccc;">
+                    <strong>adjective</strong> - /ˈɛpɪk/ (EP-ik)<br><br>
+                    Just when they see something epic, its absolutely jawdropping, shocking, etc.
+                </p>
+            </div>
+        </div>
+
+        <div class="spotify-perspective">
             <a href="https://data-card-for-spotify.herokuapp.com/card?user_id=iphcohuk2riswljmiykrzycae">
-                <img src="https://data-card-for-spotify.herokuapp.com/api/card?user_id=iphcohuk2riswljmiykrzycae" alt="Data Card for Spotify">
+                <img src="https://data-card-for-spotify.herokuapp.com/api/card?user_id=iphcohuk2riswljmiykrzycae" alt="Spotify Card">
             </a>
         </div>
 
-        <div class="notepad-header">
-            <span>File Edit Format View Help</span>
-            <span>Epic.txt _ □ ✖</span>
-        </div>
+        <div class="big-label">EPICVERSAL</div>
 
-        <div class="notepad-body">
-            <h1>Epic.</h1>
-            <span class="handle">discord: epicversal</span>
-            
-            <div class="bio">
-                <strong>adjective</strong> - /ˈɛpɪk/ (EP-ik)<br><br>
-                Just when they see something epic, its absolutely jawdropping, shocking, etc.<br>
-            </div>
-            
-            <div style="margin-top: 30px; font-size: 0.7rem; letter-spacing: 3px; opacity: 0.3;">
-                SYSTEM OVERRIDE // 2025
-            </div>
-        </div>
     </div>
 
 </body>

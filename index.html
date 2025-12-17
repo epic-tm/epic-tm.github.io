@@ -1,17 +1,15 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>epic | futuristic console</title>
+    <title>epic | globe console</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-strong: rgba(255, 255, 255, 0.1);
-            --border: rgba(255, 255, 255, 0.2);
-            --accent: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.15);
         }
 
         body {
@@ -27,32 +25,45 @@
             perspective: 1500px;
         }
 
-        /* 1. INCREASED PANORAMA OPACITY (30%) */
-        .panorama-bg {
+        /* 1. THE GLOBE BACKGROUND (50% Size, Spinning) */
+        .globe-bg {
             position: fixed;
-            top: 0; left: 0;
-            width: 200%; height: 100%;
-            background: url('https://i.pinimg.com/1200x/e8/ef/25/e8ef25f2941407367f048fdbf1fa7354.jpg') repeat-x;
-            background-size: contain;
-            filter: grayscale(1) brightness(0.4);
-            opacity: 0.30; /* Raised from 10% to 30% for visibility */
-            z-index: -2;
-            animation: panoramaScroll 45s linear infinite;
+            width: 80vh; /* Scaled to roughly 50% of the viewport height */
+            height: 80vh;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.15;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: globeSpin 20s linear infinite;
         }
 
-        @keyframes panoramaScroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
+        /* Wireframe Globe Lines */
+        .globe-bg::before, .globe-bg::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        .globe-bg::before { transform: rotateY(60deg); }
+        .globe-bg::after { transform: rotateY(120deg); }
+
+        @keyframes globeSpin {
+            from { transform: rotate(0deg) rotateX(20deg); }
+            to { transform: rotate(360deg) rotateX(20deg); }
         }
 
-        /* 2. FUTURISTIC OVERLAYS (Scanlines) */
-        body::after {
+        /* 2. SUBTLE GIF OVERLAY (5%) */
+        body::before {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
-            background-size: 100% 2px, 3px 100%;
+            background: url('https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9e187723df1.gif') center/cover;
+            opacity: 0.05;
             z-index: 5;
             pointer-events: none;
         }
@@ -65,56 +76,35 @@
             z-index: 2;
         }
 
-        /* 3. VECTOR HUD ELEMENTS */
-        .hud-corner {
-            position: absolute;
-            width: 100px; height: 100px;
-            border: 1px solid var(--border);
-            opacity: 0.4;
-            pointer-events: none;
-        }
-        .top-left { top: 40px; left: 40px; border-right: none; border-bottom: none; }
-        .bottom-right { bottom: 40px; right: 40px; border-left: none; border-top: none; }
-
-        /* 4. ROTATING VECTOR RING (Behind Card) */
-        .vector-ring {
-            position: absolute;
-            width: 600px; height: 600px;
-            border: 1px dashed rgba(255,255,255,0.1);
-            border-radius: 50%;
-            animation: spin 20s linear infinite;
-            pointer-events: none;
-        }
-
         /* Main Bio Window */
         .notepad-perspective {
             width: 480px;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(40px);
             border: 1px solid var(--border);
-            border-radius: 4px; /* More industrial look */
+            border-radius: 2px;
             transform: translateZ(100px);
-            box-shadow: 0 0 40px rgba(255,255,255,0.05);
+            box-shadow: 0 0 50px rgba(0,0,0,1);
         }
 
         .notepad-header {
             padding: 10px 18px;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.05);
             border-bottom: 1px solid var(--border);
             font-size: 10px;
             display: flex; justify-content: space-between; align-items: center;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             font-family: 'Space Mono', monospace;
+            color: #555;
         }
 
         .header-viz { height: 18px; filter: grayscale(1) invert(1); opacity: 0.8; }
 
         .notepad-body { padding: 40px; }
-        h1 { margin: 0; font-size: 3.5rem; font-weight: 900; letter-spacing: -4px; line-height: 1; }
-        .handle { font-family: 'Space Mono', monospace; font-size: 11px; color: #888; display: block; margin: 10px 0 25px 0;}
+        h1 { margin: 0; font-size: 3.5rem; font-weight: 900; letter-spacing: -4px; line-height: 1; color: #fff; }
+        .handle { font-family: 'Space Mono', monospace; font-size: 11px; color: #444; display: block; margin: 10px 0 25px 0;}
+        .bio-text { font-size: 14px; line-height: 1.8; color: #999; }
 
-        /* Floor Section (Spotify & Disc) */
+        /* Floor Perspective Section */
         .floor-container {
             position: absolute;
             bottom: 5%;
@@ -125,56 +115,54 @@
 
         .glass-frame {
             padding: 20px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.02);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 10px;
-            filter: grayscale(1);
         }
 
+        /* 3. NEW DIJON VINYL DISC */
         .disc-underlay {
             position: absolute;
-            width: 480px; height: 480px;
+            width: 500px; height: 500px;
             top: 50%; left: 50%;
-            margin-top: -240px; margin-left: -240px;
-            background: url('https://pbs.twimg.com/profile_images/1728983022819553280/18VppoMQ_400x400.png') center/cover;
+            margin-top: -250px; margin-left: -250px;
+            background: url('https://shop.dijondijon.com/cdn/shop/files/r2_black_copy_1200x1200.png?v=1755268037') center/cover;
             border-radius: 50%;
             z-index: -1;
-            filter: grayscale(0.2) contrast(1.2); /* Very visible now */
-            opacity: 0.8;
-            animation: spin 10s linear infinite;
-            transform: translateZ(-30px);
+            filter: brightness(0.8);
+            animation: vinylSpin 8s linear infinite;
+            transform: translateZ(-20px);
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg) translateZ(-30px); }
-            to { transform: rotate(360deg) translateZ(-30px); }
+        @keyframes vinylSpin {
+            from { transform: rotate(0deg) translateZ(-20px); }
+            to { transform: rotate(360deg) translateZ(-20px); }
         }
 
-        .spotify-bottom img { width: 100%; }
+        .spotify-bottom img { width: 100%; border-radius: 4px; filter: grayscale(1); }
 
     </style>
 </head>
 <body>
 
-    <div class="panorama-bg"></div>
+    <div class="globe-bg">
+        <div style="position: absolute; width: 100%; height: 1px; background: rgba(255,255,255,0.1);"></div>
+        <div style="position: absolute; width: 1px; height: 100%; background: rgba(255,255,255,0.1);"></div>
+    </div>
 
     <div class="scene">
         
-        <div class="hud-corner top-left"></div>
-        <div class="hud-corner bottom-right"></div>
-        <div class="vector-ring"></div>
-
         <div class="notepad-perspective">
             <div class="notepad-header">
-                <span>[ CORE_ACCESS_GRANTED ]</span>
+                <span>SYSTEM://GLOBAL_CORE</span>
                 <img src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2J5azQyamloZ3U2NXYybnNyOW5qZDN5Ymp3ZjVoZGFzbG45NGdtdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/9NBc7mNyUgaQl0EC11/giphy.gif" class="header-viz">
-                <span>V.2025</span>
+                <span>V.02</span>
             </div>
             <div class="notepad-body">
                 <h1>Epic.</h1>
-                <span class="handle">ID: epicversal // DISCORD</span>
-                <div style="font-size: 14px; line-height: 1.8; color: #aaa;">
+                <span class="handle">USER: epicversal // LOC: NULL</span>
+                <div class="bio-text">
                     <strong>adjective</strong> - /ˈɛpɪk/ (EP-ik)<br><br>
                     Just when they see something epic, its absolutely jawdropping, shocking, etc.
                 </div>
@@ -183,9 +171,10 @@
 
         <div class="floor-container">
             <div class="disc-underlay"></div>
+            
             <div class="glass-frame">
                 <a href="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&redirect=true">
-                    <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0&mode=dark" style="width:100%; border-radius: 5px;">
+                    <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=true&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0&mode=dark" alt="Spotify">
                 </a>
             </div>
         </div>

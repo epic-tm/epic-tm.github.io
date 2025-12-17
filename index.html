@@ -15,7 +15,7 @@
 
         body {
             margin: 0;
-            background-color: #000; /* Pure Black Background */
+            background-color: #000;
             font-family: 'Poppins', sans-serif;
             color: var(--text);
             height: 100vh;
@@ -31,7 +31,7 @@
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9e187723df1.gif') center/cover;
+            background: url('https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9(https://i.pinimg.com/originals/63/24/3a/63243aacfe563f25e472f9e187723df1.gif') center/cover;
             opacity: 0.05;
             z-index: 1;
             pointer-events: none;
@@ -48,7 +48,7 @@
             z-index: 2;
         }
 
-        /* Sidebar Tools */
+        /* Left Side Elements */
         .sidebar-left {
             position: absolute;
             left: 8%;
@@ -65,7 +65,7 @@
             backdrop-filter: blur(5px);
         }
 
-        /* Main Note Pad */
+        /* Main Bio Card */
         .notepad-perspective {
             width: 460px;
             background: rgba(255, 255, 255, 0.03);
@@ -73,7 +73,7 @@
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border);
             border-radius: 8px;
-            transform: translateZ(150px);
+            transform: translateZ(100px);
             box-shadow: 0 40px 100px rgba(0,0,0,0.9);
         }
 
@@ -89,26 +89,33 @@
         }
 
         .notepad-body { padding: 35px; }
-
         h1 { margin: 0; font-size: 3.2rem; font-weight: 900; letter-spacing: -4px; line-height: 1; }
         .handle { font-family: 'Space Mono', monospace; font-size: 12px; opacity: 0.4; display: block; margin: 10px 0 25px 0;}
         .bio-text { font-size: 14px; line-height: 1.7; color: #ccc; }
 
-        /* Smaller Spotify Profile Card - Static State */
-        .spotify-perspective {
+        /* Right Side Top Card */
+        .spotify-top {
             position: absolute;
             right: 8%;
+            top: 15%;
             transform: rotateY(-30deg) translateZ(50px);
-            width: 320px; 
+            width: 300px; 
             filter: grayscale(1) contrast(1.1) brightness(0.8);
-            /* Removed hover transition properties */
         }
         
-        .spotify-perspective img {
-            width: 100%;
-            border-radius: 10px;
-            border: 1px solid var(--border);
+        .spotify-top img { width: 100%; border-radius: 10px; border: 1px solid var(--border); }
+
+        /* Bottom "Floor" Spotify Card */
+        .spotify-bottom {
+            position: absolute;
+            bottom: 5%;
+            width: 600px;
+            transform: rotateX(55deg) translateZ(0px);
+            filter: grayscale(1) opacity(0.6);
+            transition: 0.5s;
         }
+
+        .spotify-bottom img { width: 100%; }
 
     </style>
 </head>
@@ -121,8 +128,6 @@
             <div class="tool-box" style="background: rgba(255,255,255,0.15);"></div>
             <div class="tool-box"></div>
             <div class="tool-box"></div>
-            <div style="height: 20px;"></div>
-            <div class="tool-box" style="border-radius: 50%;"></div>
         </div>
 
         <div class="notepad-perspective">
@@ -137,15 +142,18 @@
                     <strong>adjective</strong> - /ˈɛpɪk/ (EP-ik)<br><br>
                     Just when they see something epic, its absolutely jawdropping, shocking, etc.
                 </div>
-                <div style="margin-top: 40px; font-size: 10px; opacity: 0.2; letter-spacing: 5px; text-transform: uppercase;">
-                    Static Perspective // v2.2
-                </div>
             </div>
         </div>
 
-        <div class="spotify-perspective">
+        <div class="spotify-top">
             <a href="https://github.com/kittinan/spotify-github-profile">
-                <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=default&show_offline=false&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0" alt="Spotify Profile">
+                <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=default&show_offline=false&background_color=121212&interchange=true&profanity=false&bar_color_cover=false&bar_color=c0c0c0" alt="Spotify Top">
+            </a>
+        </div>
+
+        <div class="spotify-bottom">
+            <a href="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&redirect=true">
+                <img src="https://spotify-github-profile.kittinanx.com/api/view?uid=iphcohuk2riswljmiykrzycae&cover_image=true&theme=spotify-embed&show_offline=false&background_color=121212&interchange=true&profanity=true&bar_color_cover=true&bar_color=c0c0c0&mode=light" alt="Spotify Floor">
             </a>
         </div>
 
